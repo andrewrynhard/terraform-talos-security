@@ -1,0 +1,16 @@
+metadata:
+  repository: autonomy/terraform-talos-security
+policies:
+- type: conventionalCommit
+  spec:
+    types:
+    - chore
+    - docs
+    - perf
+    - refactor
+    - style
+    - test
+    scopes:
+    - kubeadm
+    - kubernetes
+    - talos
