@@ -22,14 +22,6 @@ output "talos_ca_key" {
   value = "${tls_private_key.talos_ca.private_key_pem}"
 }
 
-output "talos_identity_cert_pem" {
-  value = "${tls_locally_signed_cert.talos_identity.cert_pem}"
-}
-
-output "talos_identity_private_key_pem" {
-  value = "${tls_private_key.talos_identity.private_key_pem}"
-}
-
 output "trustd_password" {
   value = "${random_string.trustd_password.result}"
 }

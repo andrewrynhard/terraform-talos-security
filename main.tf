@@ -24,39 +24,6 @@ resource "tls_self_signed_cert" "talos_ca" {
   ]
 }
 
-resource "tls_private_key" "talos_identity" {
-  algorithm   = "ECDSA"
-  ecdsa_curve = "P521"
-}
-
-resource "tls_cert_request" "talos_identity" {
-  key_algorithm   = "ECDSA"
-  private_key_pem = "${tls_private_key.talos_identity.private_key_pem}"
-
-  ip_addresses = ["${var.talos_identity_ip_addresses}"]
-
-  subject {
-    common_name  = "Talos Node"
-    organization = "Talos"
-  }
-}
-
-resource "tls_locally_signed_cert" "talos_identity" {
-  cert_request_pem   = "${tls_cert_request.talos_identity.cert_request_pem}"
-  ca_key_algorithm   = "ECDSA"
-  ca_private_key_pem = "${tls_private_key.talos_ca.private_key_pem}"
-  ca_cert_pem        = "${tls_self_signed_cert.talos_ca.cert_pem}"
-
-  validity_period_hours = "${var.talos_validity_period_hours}"
-
-  allowed_uses = [
-    "key_encipherment",
-    "digital_signature",
-    "server_auth",
-    "client_auth",
-  ]
-}
-
 resource "tls_private_key" "talos_admin" {
   algorithm   = "ECDSA"
   ecdsa_curve = "P521"
@@ -95,7 +62,7 @@ data "template_file" "admin_config" {
 context: ${var.talos_context}
 contexts:
   ${var.talos_context}:
-    target: ${var.talos_identity_ip_addresses[0]}
+    target: ${var.talos_target}
     ca: $${talos_ca_crt}
     crt: $${talos_admin_crt}
     key: $${talos_admin_key}

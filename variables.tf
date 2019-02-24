@@ -1,10 +1,11 @@
-variable "talos_identity_ip_addresses" {
-  description = "A list of the master node IP addresses."
-  type        = "list"
+variable "talos_target" {
+  description = "The default target to use"
+  type        = "string"
 }
 
 variable "talos_context" {
   description = "The name of the osctl context to use when generating the config output."
+  type        = "string"
 }
 
 variable "talos_validity_period_hours" {
