@@ -120,3 +120,8 @@ resource "random_shuffle" "kubeadm_token_part_2" {
   input        = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "a", "b", "c", "d", "e", "f", "g", "h", "i", "t", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"]
   result_count = 16
 }
+
+resource "random_string" "kubeadm_certificate_key" {
+  length  = 24
+  special = true
+}

@@ -2,6 +2,10 @@ output "kubeadm_token" {
   value = "${format("%s.%s", join("", random_shuffle.kubeadm_token_part_1.result), join("", random_shuffle.kubeadm_token_part_2.result))}"
 }
 
+output "kubeadm_certificate_key" {
+  value = "${random_string.kubeadm_certificate_key.result}"
+}
+
 output "kubernetes_ca_crt" {
   value = "${tls_self_signed_cert.kubernetes_ca.cert_pem}"
 }
